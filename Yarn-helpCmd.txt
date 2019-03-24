@@ -1,0 +1,42 @@
+node + yarn.
+
+.gitignore /node_modules
+
+yarn init
+yarn add @babel/cli
+yarn add @babel/preset-env
+yarn add @babel/core
+
+config file = .babelrc
+
+{
+    "presets": ["@babel/preset-env"]
+}
+
+in package.json:
+
+"scripts": {
+  "dev": "babel ./main.js -o ./bundle.js" <<< "-w" to get continuous update in bundle.
+}
+
+then execute:
+
+yarn dev
+
+-----------------------------------------------------------------------------------------
+
+yarn add @babel/plugin-proposal-object-rest-spread
+
+then, in babelrc:
+
+"plugins": [@babel/plugin-proposal-object-rest-spread]
+
+
+-------------------------------------------------------------------------------------------
+
+yarn add webpack webpack-cli
+
++ change package.json > dependencies to devDependencies (-D in all commands)
+
+then new file - webpack.config.js
+
