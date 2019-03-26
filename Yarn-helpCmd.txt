@@ -16,7 +16,7 @@ config file = .babelrc
 in package.json:
 
 "scripts": {
-  "dev": "babel ./main.js -o ./bundle.js" <<< "-w" to get continuous update in bundle.
+  "dev": "babel ./main.js -o ./bundle.js" <<< "-w" to get continuous update in bundle.  (change to "webpack --mode=developent -w")
 }
 
 then execute:
@@ -35,8 +35,51 @@ then, in babelrc:
 -------------------------------------------------------------------------------------------
 
 yarn add webpack webpack-cli
+yarn add babel-loader
 
 + change package.json > dependencies to devDependencies (-D in all commands)
 
-then new file - webpack.config.js
+then new file - webpack.config.js:
 
+module.exports = {
+    entry: './main.js',
+    output: {
+        path: __dirname + '/Public',
+        filename: 'bundle.js',
+    },
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                }
+            }
+        ]
+    }
+}
+
+-----------------------------------------------------------------------------------------------------
+
+yarn add webpack-dev-server -D
+
+in webpack:
+
+devServer: {
+	contentBase: __dirname + '/Public'
+},
+
+in package.json:
+
+Change to "webpack-web-server --mode=developent"
+plus - "prd": "webpack --mode=production"
+
+----------------------------------------------------------------------------------------------------
+
+yarn add @babel/plugin-transform-async-to-generator -D (BabelRC)
+yarn add @babel/polyfill -D (WebPack)
+
+in webpack entry line:
+
+"@babel/polyfill", 
